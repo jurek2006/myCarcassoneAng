@@ -1,18 +1,15 @@
 <table>
-	<tr>
-		<td>
-			<div class="boardLine" 
-			*ngFor = "let boardLine of board">
-				<div
-				*ngFor = "let boardBox of boardLine" 
-				class="boardBox" 
-				[class.active] = "boardBox.active"
-				[class.inActive] = "!boardBox.active"
-				[class.occupied] = "boardBox.occupied"
-				(click) = "tileClicked(boardBox)" >
-					{{boardBox.boardRow}} - {{boardBox.statusActive}}
-				</div>
-			</div>
+	<tr 
+	class="boardLine" 
+	*ngFor = "let boardLine of board">
+		<td
+		*ngFor = "let boardBox of boardLine" 
+		class="boardBox" 
+		[class.active] = "boardBox.active"
+		[class.inActive] = "!boardBox.active"
+		[class.occupied] = "boardBox.occupied"
+		(click) = "tileClicked(boardBox)" >
+			{{boardBox.boardRow}} - {{boardBox.statusActive}}
 		</td>
 	</tr>
 </table>
