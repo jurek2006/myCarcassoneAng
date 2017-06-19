@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Tile } from './tile.model';
+import { BoardService } from '../board.service';
 
 @Component({
   selector: 'app-board',
@@ -9,18 +9,29 @@ import { Tile } from './tile.model';
 })
 export class BoardComponent implements OnInit {
 
-	board: Tile[] = [new Tile(0,'red', false), new Tile(1,'blue', true) ];
+	// plansza gry
+	board: Tile[][];
 
-  constructor() { }
+  constructor(private boardService: BoardService) { }
 
   ngOnInit() {
+  	// referencja do planszy w serwisie boardService
+  	this.board  = this.boardService.board;
   }
 
-  tileClicked(boardTile: Tile){
-  	console.log(boardTile);
-  	if(boardTile.statusActive){
-  	  	this.board.push(new Tile(2,'yellow', false));
+  tileClicked(clickedBoardTile: Tile){
+  	console.log(clickedBoardTile);
+  	if(clickedBoardTile.active){
+  	  	// console.log(clickedBoardTile);
+  	  	console.log(this.board);
+  	  	clickedBoardTile.active = false;
+  	  	clickedBoardTile.occupied = true;
+
+  	}else{
+  		console.log("Nie można umieścić - pole nieaktywne");
   	}
   }
+
+
 
 }

@@ -1,4 +1,12 @@
+.boardLine{}
+
 .boardBox{
 	width: 100px;
 	height: 100px;
+	float: left;
 }
+
+.active{ background-color: #CCC; }
+.inActive{ background-color: #FFF; }
+.occupied{ background-color: green }
+

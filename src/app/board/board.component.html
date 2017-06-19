@@ -1,13 +1,21 @@
 <table>
 	<tr>
 		<td>
-			<div
-			*ngFor = "let boardBox of board" 
-			class="boardBox" 
-			[ngStyle]="{backgroundColor: boardBox.statusActive ? boardBox.color : '#ccc'}"
-			(click) = "tileClicked(boardBox)" >
-				{{boardBox.number}} - {{boardBox.statusActive}}
+			<div class="boardLine" 
+			*ngFor = "let boardLine of board">
+				<div
+				*ngFor = "let boardBox of boardLine" 
+				class="boardBox" 
+				[class.active] = "boardBox.active"
+				[class.inActive] = "!boardBox.active"
+				[class.occupied] = "boardBox.occupied"
+				(click) = "tileClicked(boardBox)" >
+					{{boardBox.boardRow}} - {{boardBox.statusActive}}
+				</div>
 			</div>
 		</td>
 	</tr>
 </table>
+
+<!-- [ngStyle]="{backgroundColor: boardBox.statusActive ? boardBox.color : '#ccc'}" -->
+<!-- [ngClass] = "{active: boardBox.active}" -->

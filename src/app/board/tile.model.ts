@@ -1,4 +1,6 @@
-export class Tile{
 
-	constructor(public number: Number, public color: string, public statusActive: boolean = false, public tileRef: Number = null){	}
+export class Tile{
+	public color: string = 'green';
+	constructor(public boardRow: Number, public occupied: Boolean = false, public active: Boolean = true , public tileRef: Number = null){}
+
 }
