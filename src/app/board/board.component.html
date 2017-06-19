@@ -1,3 +1,13 @@
-<p>
-  board works!
-</p>
+<table>
+	<tr>
+		<td>
+			<div
+			*ngFor = "let boardBox of board" 
+			class="boardBox" 
+			[ngStyle]="{backgroundColor: boardBox.statusActive ? boardBox.color : '#ccc'}"
+			(click) = "tileClicked(boardBox)" >
+				{{boardBox.number}} - {{boardBox.statusActive}}
+			</div>
+		</td>
+	</tr>
+</table>
