@@ -12,6 +12,8 @@ export class BoardComponent implements OnInit {
 	// plansza gry
 	board: Tile[][];
 
+  
+
   constructor(private boardService: BoardService) { }
 
   ngOnInit() {
@@ -19,17 +21,14 @@ export class BoardComponent implements OnInit {
   	this.board  = this.boardService.board;
   }
 
-  tileClicked(clickedBoardTile: Tile){
-  	console.log(clickedBoardTile);
-  	if(clickedBoardTile.active){
-  	  	// console.log(clickedBoardTile);
-  	  	console.log(this.board);
-  	  	clickedBoardTile.active = false;
-  	  	clickedBoardTile.occupied = true;
+  tileClicked(clickedBoardTile: Tile, rowIndex: number, colIndex: number){
+  // rowIndex, colIndex - aktualne położenie klikniętego Tile na planszy (w tablicy)
 
-  	}else{
-  		console.log("Nie można umieścić - pole nieaktywne");
-  	}
+    // sprawdzenie, czy tile jest aktywny (tj. czy można na niego w ogóle kliknąć)
+    if(clickedBoardTile.active){
+      this.boardService.putTileOnBoard(clickedBoardTile, rowIndex, colIndex);
+    }
+
   }
 
 
