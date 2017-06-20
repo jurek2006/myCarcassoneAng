@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile, BoardFieldStatus } from './tile.model';
+import { BoardField, BoardFieldStatus } from './board-field.model';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { BoardService } from '../board.service';
 export class BoardComponent implements OnInit {
 
 	// plansza gry
-	board: Tile[][];
+	board: BoardField[][];
 
   
 
@@ -21,13 +21,13 @@ export class BoardComponent implements OnInit {
   	this.board  = this.boardService.board;
   }
 
-  tileClicked(clickedBoardTile: Tile, rowIndex: number, colIndex: number){
-  // rowIndex, colIndex - aktualne położenie klikniętego Tile na planszy (w tablicy)
+  fieldClicked(clickedBoardField: BoardField, rowIndex: number, colIndex: number){
+  // rowIndex, colIndex - aktualne położenie klikniętego pola na planszy (w tablicy)
 
-    // sprawdzenie, czy tile jest aktywny (tj. czy można na niego w ogóle kliknąć)
-    if(clickedBoardTile.boardFieldStatus === BoardFieldStatus.Active){
-      console.log(clickedBoardTile);
-      this.boardService.putTileOnBoard(clickedBoardTile, rowIndex, colIndex);
+    // sprawdzenie, czy pole jest aktywny (tj. czy można na niego w ogóle kliknąć)
+    if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active){
+      console.log(clickedBoardField);
+      this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex);
     }
 
   }

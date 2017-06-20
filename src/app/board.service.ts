@@ -1,12 +1,12 @@
-import { Tile, BoardFieldStatus } from './board/tile.model';
+import { BoardField, BoardFieldStatus } from './board/board-field.model';
 import { NewRowOrColPosition } from './board/newRowOrColPosition.model';
 
 // BoardService przechowuje dane planszy
 export class BoardService{
 	board  = [	
-		[new Tile(0, BoardFieldStatus.Inactive), new Tile(1, BoardFieldStatus.Active), new Tile(2,BoardFieldStatus.Inactive) ], 
-		[new Tile(0, BoardFieldStatus.Active), new Tile(1, BoardFieldStatus.Occupied), new Tile(2,BoardFieldStatus.Active) ], 
-		[new Tile(0, BoardFieldStatus.Inactive), new Tile(1, BoardFieldStatus.Active), new Tile(2,BoardFieldStatus.Inactive) ]
+		[new BoardField(0, BoardFieldStatus.Inactive), new BoardField(1, BoardFieldStatus.Active), new BoardField(2,BoardFieldStatus.Inactive) ], 
+		[new BoardField(0, BoardFieldStatus.Active), new BoardField(1, BoardFieldStatus.Occupied), new BoardField(2,BoardFieldStatus.Active) ], 
+		[new BoardField(0, BoardFieldStatus.Inactive), new BoardField(1, BoardFieldStatus.Active), new BoardField(2,BoardFieldStatus.Inactive) ]
 	];
 
 	boardLastRowIndex(): number{ 
@@ -19,15 +19,15 @@ export class BoardService{
 		return this.board[0].length -1;
 	}
 
-	putTileOnBoard(clickedBoardTile: Tile, rowIndex: number, colIndex: number){
-	// clickedBoardTile - kliknięty Tile
-	// rowIndex, colIndex - aktualne (w momencie kliknięcia) położenie klikniętego Tile w tabeli-planszy
+	putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number){
+	// clickedBoardField - kliknięte pole planszy na którym układany jest Tile/Klocek
+	// rowIndex, colIndex - aktualne (w momencie kliknięcia) położenie klikniętego pola planszy w tabeli-planszy
 
-		// sprawdzenie czy w ogóle można było kliknąć w Tile (czy jest aktywny)
-		// i czy kliknięty Tile to jest ten sam co położony w tablicy board
+		// sprawdzenie czy w ogóle można było kliknąć w pole planszy (czy jest aktywne)
+		// i czy kliknięte pole to jest to samo, co położone w tablicy board o umiejscowieniu [rowIndex, colIndex]
 		// tak powinno być zawsze - jeśli jest inaczej, to nastąpił jakiś błąd
-		if(clickedBoardTile.boardFieldStatus === BoardFieldStatus.Active 
-			&& clickedBoardTile === this.board[rowIndex][colIndex]){
+		if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active 
+			&& clickedBoardField === this.board[rowIndex][colIndex]){
 
 
 			// --------------------------------------------------------------------------
@@ -37,22 +37,22 @@ export class BoardService{
 			// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
 			// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
 			if(rowIndex === 0){
-			// jeśli kliknięty tile jest w pierwszym wierszu (na górze planszy)
+			// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
 				newRowOrColPosition = NewRowOrColPosition.Top;
 			}else if(rowIndex === this.boardLastRowIndex()){
-			// jeśli kliknięty tile jest w ostatnim wierszu (na dole planszy)
+			// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
 				newRowOrColPosition = NewRowOrColPosition.Bottom;
 			}else if(colIndex === 0){
-			// jeśli kliknięty tile jest w pierwszej kolumnie (na lewym skraju planszy)
+			// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
 				newRowOrColPosition = NewRowOrColPosition.Left;
 			}else if(colIndex === this.boardLastColIndex()){
-			// jeśli kliknięty tile jest w ostatniej kolumnie (na prawym skraju planszy)
+			// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
 				newRowOrColPosition = NewRowOrColPosition.Right;
 			}
 			this.addBoardColOrRow(newRowOrColPosition);
 
 		}else{
-			console.log("Nastąpił błąd - clickedBoardTile nie odpowiada temu z board[rowIndex][colIndex]");
+			console.log("Nastąpił błąd - clickedBoardField nie odpowiada temu z board[rowIndex][colIndex]");
 		}
 	}
 
@@ -63,9 +63,9 @@ export class BoardService{
 		const addRow = (newRowPosition: NewRowOrColPosition) => {
 
 			// stworzenie nowego wiersza
-			let newRow: Tile[] = [];
+			let newRow: BoardField[] = [];
 			for(let i = 0; i < this.boardLastColIndex()+1; i++){
-				newRow.push(new Tile(9,BoardFieldStatus.Inactive));
+				newRow.push(new BoardField(9,BoardFieldStatus.Inactive));
 			}
 
 			if(newRowPosition === NewRowOrColPosition.Top){
@@ -79,9 +79,9 @@ export class BoardService{
 			for(let i = 0; i < this.boardLastRowIndex()+1; i++){
 
 				if(newRowPosition === NewRowOrColPosition.Left){
-					this.board[i].unshift(new Tile(9,BoardFieldStatus.Inactive));
+					this.board[i].unshift(new BoardField(9,BoardFieldStatus.Inactive));
 				}else if(newRowPosition === NewRowOrColPosition.Right){
-					this.board[i].push(new Tile(9,BoardFieldStatus.Inactive));
+					this.board[i].push(new BoardField(9,BoardFieldStatus.Inactive));
 				}
 			}
 		}

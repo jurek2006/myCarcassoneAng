@@ -8,7 +8,7 @@
 		[class.occupied] = "boardBox.boardFieldStatus === 0"
 		[class.active] = "boardBox.boardFieldStatus === 1"
 		[class.inactive] = "boardBox.boardFieldStatus === 2"
-		(click) = "tileClicked(boardBox, rowIndex, colIndex)" >
+		(click) = "fieldClicked(boardBox, rowIndex, colIndex)" >
 			{{boardBox.boardRow}} - {{boardBox.statusActive}}
 		</td>
 	</tr>

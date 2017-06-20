@@ -1,6 +1,6 @@
 
-export class Tile{
-	public color: string = 'green';
+export class BoardField{
+
 	constructor(public boardRow: number, public boardFieldStatus: BoardFieldStatus = BoardFieldStatus.Inactive){}
 
 }
