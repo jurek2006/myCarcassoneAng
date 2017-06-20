@@ -1,12 +1,12 @@
-import { Tile } from './board/tile.model';
+import { Tile, BoardFieldStatus } from './board/tile.model';
 import { NewRowOrColPosition } from './board/newRowOrColPosition.model';
 
 // BoardService przechowuje dane planszy
 export class BoardService{
 	board  = [	
-		[new Tile(0, false, false), new Tile(1, false, true), new Tile(2,false, false) ], 
-		[new Tile(0, false, true), new Tile(1, true, false), new Tile(2,false, true) ], 
-		[new Tile(0, false, false), new Tile(1, false, true), new Tile(2,false, false) ]
+		[new Tile(0, BoardFieldStatus.Inactive), new Tile(1, BoardFieldStatus.Active), new Tile(2,BoardFieldStatus.Inactive) ], 
+		[new Tile(0, BoardFieldStatus.Active), new Tile(1, BoardFieldStatus.Occupied), new Tile(2,BoardFieldStatus.Active) ], 
+		[new Tile(0, BoardFieldStatus.Inactive), new Tile(1, BoardFieldStatus.Active), new Tile(2,BoardFieldStatus.Inactive) ]
 	];
 
 	boardLastRowIndex(): number{ 
@@ -26,8 +26,12 @@ export class BoardService{
 		// sprawdzenie czy w ogóle można było kliknąć w Tile (czy jest aktywny)
 		// i czy kliknięty Tile to jest ten sam co położony w tablicy board
 		// tak powinno być zawsze - jeśli jest inaczej, to nastąpił jakiś błąd
-		if(clickedBoardTile.active && clickedBoardTile === this.board[rowIndex][colIndex]){
+		if(clickedBoardTile.boardFieldStatus === BoardFieldStatus.Active 
+			&& clickedBoardTile === this.board[rowIndex][colIndex]){
 
+
+			// --------------------------------------------------------------------------
+			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
 			let newRowOrColPosition: NewRowOrColPosition;
 
 			// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
@@ -61,7 +65,7 @@ export class BoardService{
 			// stworzenie nowego wiersza
 			let newRow: Tile[] = [];
 			for(let i = 0; i < this.boardLastColIndex()+1; i++){
-				newRow.push(new Tile(9,false,false));
+				newRow.push(new Tile(9,BoardFieldStatus.Inactive));
 			}
 
 			if(newRowPosition === NewRowOrColPosition.Top){
@@ -75,9 +79,9 @@ export class BoardService{
 			for(let i = 0; i < this.boardLastRowIndex()+1; i++){
 
 				if(newRowPosition === NewRowOrColPosition.Left){
-					this.board[i].unshift(new Tile(9,false,false));
+					this.board[i].unshift(new Tile(9,BoardFieldStatus.Inactive));
 				}else if(newRowPosition === NewRowOrColPosition.Right){
-					this.board[i].push(new Tile(9,false,false));
+					this.board[i].push(new Tile(9,BoardFieldStatus.Inactive));
 				}
 			}
 		}

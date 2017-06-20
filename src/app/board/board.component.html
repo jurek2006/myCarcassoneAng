@@ -5,12 +5,11 @@
 		<td
 		*ngFor = "let boardBox of boardLine; let colIndex = index" 
 		class="boardBox" 
-		[class.active] = "boardBox.active"
-		[class.inActive] = "!boardBox.active"
-		[class.occupied] = "boardBox.occupied"
+		[class.occupied] = "boardBox.boardFieldStatus === 0"
+		[class.active] = "boardBox.boardFieldStatus === 1"
+		[class.inactive] = "boardBox.boardFieldStatus === 2"
 		(click) = "tileClicked(boardBox, rowIndex, colIndex)" >
 			{{boardBox.boardRow}} - {{boardBox.statusActive}}
 		</td>
 	</tr>
 </table>
-

@@ -7,6 +7,6 @@
 }
 
 .active{ background-color: #CCC; }
-.inActive{ background-color: #FFF; }
+.inactive{ background-color: #FFF; }
 .occupied{ background-color: green }
 

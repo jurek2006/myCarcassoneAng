@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile } from './tile.model';
+import { Tile, BoardFieldStatus } from './tile.model';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -25,7 +25,8 @@ export class BoardComponent implements OnInit {
   // rowIndex, colIndex - aktualne położenie klikniętego Tile na planszy (w tablicy)
 
     // sprawdzenie, czy tile jest aktywny (tj. czy można na niego w ogóle kliknąć)
-    if(clickedBoardTile.active){
+    if(clickedBoardTile.boardFieldStatus === BoardFieldStatus.Active){
+      console.log(clickedBoardTile);
       this.boardService.putTileOnBoard(clickedBoardTile, rowIndex, colIndex);
     }
 
