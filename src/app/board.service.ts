@@ -1,5 +1,5 @@
-import { BoardField, BoardFieldStatus } from './board/board-field.model';
-import { NewRowOrColPosition } from './board/newRowOrColPosition.model';
+import { BoardField, BoardFieldStatus } from './models/board-field.model';
+import { NewRowOrColPosition } from './models/newRowOrColPosition.model';
 
 // BoardService przechowuje dane planszy
 export class BoardService{

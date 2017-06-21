@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoardField, BoardFieldStatus } from './board-field.model';
+import { BoardField, BoardFieldStatus } from '../models/board-field.model';
 import { BoardService } from '../board.service';
 
 @Component({

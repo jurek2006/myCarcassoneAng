@@ -2,7 +2,7 @@ table{
 	table-layout: fixed;
 }
 
-.boardLine{}
+
 
 .boardBox{
 	width: 100px;
@@ -13,3 +13,7 @@ table{
 .inactive{ background-color: #FFF; }
 .occupied{ background-color: green }
 
+img{
+	width: 200px;
+	height: 200px;
+}

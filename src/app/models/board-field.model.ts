@@ -10,3 +10,4 @@ export enum BoardFieldStatus {
     Active, 	//na polu nie znajduje się płytka, ale przylega do już zajętej, więc można na nim ustawić płytkę
     Inactive,	//pole jest aktualnie nieaktywne
 }
+
