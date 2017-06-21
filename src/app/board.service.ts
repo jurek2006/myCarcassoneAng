@@ -2,7 +2,7 @@ import { BoardField, BoardFieldStatus } from './models/board-field.model';
 import { NewRowOrColPosition } from './models/newRowOrColPosition.model';
 
 // testowe
-import { Tile, CityOnTile } from './models/tile.model';
+// import { Tile, CityOnTile } from './models/tile.model';
 
 // BoardService przechowuje dane planszy
 export class BoardService{
@@ -13,7 +13,7 @@ export class BoardService{
 	];
 
 	// testowe
-	tile = new Tile('dupa', new CityOnTile(0,0,0,0,0));
+	// tile = new Tile('dupa', new CityOnTile(0,0,0,0,0));
 
 	boardLastRowIndex(): number{ 
 		return this.board.length -1;

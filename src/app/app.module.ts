@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { BoardTileComponent } from './board/board-tile/board-tile.component';
+import { DrawedTileComponent } from './drawed-tile/drawed-tile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    BoardTileComponent
+    BoardTileComponent,
+    DrawedTileComponent
   ],
   imports: [
     BrowserModule,
