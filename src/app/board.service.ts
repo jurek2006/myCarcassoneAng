@@ -29,6 +29,8 @@ export class BoardService{
 		if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active 
 			&& clickedBoardField === this.board[rowIndex][colIndex]){
 
+			// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
+			clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
 
 			// --------------------------------------------------------------------------
 			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
@@ -36,20 +38,44 @@ export class BoardService{
 
 			// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
 			// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
+			// przy powiększaniu planszy na górze/z lewej uaktualnienie odpowiednio rowIndex, colIndex
 			if(rowIndex === 0){
 			// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
 				newRowOrColPosition = NewRowOrColPosition.Top;
+				rowIndex++;
 			}else if(rowIndex === this.boardLastRowIndex()){
 			// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
 				newRowOrColPosition = NewRowOrColPosition.Bottom;
 			}else if(colIndex === 0){
 			// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
 				newRowOrColPosition = NewRowOrColPosition.Left;
+				colIndex++;
 			}else if(colIndex === this.boardLastColIndex()){
 			// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
 				newRowOrColPosition = NewRowOrColPosition.Right;
 			}
 			this.addBoardColOrRow(newRowOrColPosition);
+
+			// ---------------------------------------------------------------------------
+			// Sprawdzenie pól przylegających do klikniętego pola (czyli po jednym na górze, dole, po prawej, po lewej)
+			// Czy mają status inactive. Jeśli tak, to nadanie im active. 
+
+			// na górze 
+			if(this.board[rowIndex -1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
+				this.board[rowIndex -1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
+			}
+			// na dole
+			if(this.board[rowIndex +1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
+				this.board[rowIndex +1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
+			}
+			// z lewej 
+			if(this.board[rowIndex][colIndex -1].boardFieldStatus === BoardFieldStatus.Inactive){
+				this.board[rowIndex][colIndex -1].boardFieldStatus = BoardFieldStatus.Active;
+			}
+			// z prawej
+			if(this.board[rowIndex][colIndex +1].boardFieldStatus === BoardFieldStatus.Inactive){
+				this.board[rowIndex][colIndex +1].boardFieldStatus = BoardFieldStatus.Active;
+			}
 
 		}else{
 			console.log("Nastąpił błąd - clickedBoardField nie odpowiada temu z board[rowIndex][colIndex]");

@@ -26,7 +26,6 @@ export class BoardComponent implements OnInit {
 
     // sprawdzenie, czy pole jest aktywny (tj. czy można na niego w ogóle kliknąć)
     if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active){
-      console.log(clickedBoardField);
       this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex);
     }
 

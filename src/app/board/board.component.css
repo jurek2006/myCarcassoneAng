@@ -1,9 +1,12 @@
+table{
+	table-layout: fixed;
+}
+
 .boardLine{}
 
 .boardBox{
 	width: 100px;
 	height: 100px;
-	float: left;
 }
 
 .active{ background-color: #CCC; }
