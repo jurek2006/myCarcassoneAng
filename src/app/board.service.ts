@@ -1,6 +1,9 @@
 import { BoardField, BoardFieldStatus } from './models/board-field.model';
 import { NewRowOrColPosition } from './models/newRowOrColPosition.model';
 
+// testowe
+import { Tile, CityOnTile } from './models/tile.model';
+
 // BoardService przechowuje dane planszy
 export class BoardService{
 	board  = [	
@@ -8,6 +11,9 @@ export class BoardService{
 		[new BoardField(0, BoardFieldStatus.Active), new BoardField(1, BoardFieldStatus.Occupied), new BoardField(2,BoardFieldStatus.Active) ], 
 		[new BoardField(0, BoardFieldStatus.Inactive), new BoardField(1, BoardFieldStatus.Active), new BoardField(2,BoardFieldStatus.Inactive) ]
 	];
+
+	// testowe
+	tile = new Tile('dupa', new CityOnTile(0,0,0,0,0));
 
 	boardLastRowIndex(): number{ 
 		return this.board.length -1;
