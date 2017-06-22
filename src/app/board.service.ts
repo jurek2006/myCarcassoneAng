@@ -1,25 +1,23 @@
 import { BoardField, BoardFieldStatus } from './models/board-field.model';
 import { NewRowOrColPosition } from './models/newRowOrColPosition.model';
 
-// testowe
-// import { Tile, CityOnTile } from './models/tile.model';
-
 // BoardService przechowuje dane planszy
 export class BoardService{
-	board  = [	
+	private board  = [	
 		[new BoardField(0, BoardFieldStatus.Inactive), new BoardField(1, BoardFieldStatus.Active), new BoardField(2,BoardFieldStatus.Inactive) ], 
 		[new BoardField(0, BoardFieldStatus.Active), new BoardField(1, BoardFieldStatus.Occupied), new BoardField(2,BoardFieldStatus.Active) ], 
 		[new BoardField(0, BoardFieldStatus.Inactive), new BoardField(1, BoardFieldStatus.Active), new BoardField(2,BoardFieldStatus.Inactive) ]
 	];
 
-	// testowe
-	// tile = new Tile('dupa', new CityOnTile(0,0,0,0,0));
+	getBoard(){
+		return this.board.slice();
+	}
 
-	boardLastRowIndex(): number{ 
+	private boardLastRowIndex(): number{ 
 		return this.board.length -1;
 	}
 
-	boardLastColIndex(): number{
+	private boardLastColIndex(): number{
 	// należało by jeszcze sprawdzić, czy wszystkie wiersze mają tyle samo kolumn (muszą mieć!)
 	// ale to powinno być zapewnione przez mechanizm dodawania kolumn
 		return this.board[0].length -1;
@@ -37,6 +35,8 @@ export class BoardService{
 
 			// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
 			clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
+
+			// TUTAJ BĘDZIE TRZEBA "POŁOŻYĆ" PŁYTKĘ
 
 			// --------------------------------------------------------------------------
 			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
@@ -86,9 +86,11 @@ export class BoardService{
 		}else{
 			console.log("Nastąpił błąd - clickedBoardField nie odpowiada temu z board[rowIndex][colIndex]");
 		}
+
+		return this.getBoard();
 	}
 
-	addBoardColOrRow(newRowOrColPosition: NewRowOrColPosition){
+	private addBoardColOrRow(newRowOrColPosition: NewRowOrColPosition){
 	// funkcja dodająca wiersz lub kolumnę na skraju tabeli, 
 	// w położeniu zdefiniowanym w newRowOrColPosition (Top, Bottom, Left, Right)
 

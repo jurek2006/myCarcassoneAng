@@ -18,16 +18,14 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
   	// referencja do planszy w serwisie boardService
-  	this.board  = this.boardService.board;
+  	this.board  = this.boardService.getBoard();
   }
 
   fieldClicked(clickedBoardField: BoardField, rowIndex: number, colIndex: number){
   // rowIndex, colIndex - aktualne położenie klikniętego pola na planszy (w tablicy)
 
-    // sprawdzenie, czy pole jest aktywny (tj. czy można na niego w ogóle kliknąć)
-    if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active){
-      this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex);
-    }
+      this.board = this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex);
+
 
   }
 

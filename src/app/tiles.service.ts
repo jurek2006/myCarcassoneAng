@@ -3,8 +3,10 @@ import { Tile, CityOnTile } from './models/tile.model';
 
 // TilesService przechowuje dane o płytkach (tiles)
 
+// TESTOWE
+
 export class TilesService{
-	tiles: Tile[] = [
+	private tiles: Tile[] = [
 		new Tile("red", new CityOnTile(0,0,0,0,0), "tileA01.jpg"),
 		new Tile("blue", new CityOnTile(0,0,0,0,0), "tileA02.jpg"),
 		new Tile("yellow", new CityOnTile(0,0,0,0,0), "tileA03.jpg")
