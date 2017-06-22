@@ -7,7 +7,6 @@ import { TilesService } from '../tiles.service';
   selector: 'app-drawed-tile',
   templateUrl: './drawed-tile.component.html',
   styleUrls: ['./drawed-tile.component.css'],
-  providers: [TilesService]
 })
 export class DrawedTileComponent implements OnInit {
 
@@ -16,7 +15,7 @@ export class DrawedTileComponent implements OnInit {
   constructor(private tilesService: TilesService) { }
 
   ngOnInit() {
-  	this.selectedTile = this.tilesService.selectedTile;
+  	this.selectedTile = this.tilesService.getSelectedTile();
   }
 
   imageTestClick(){

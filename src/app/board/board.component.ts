@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardField, BoardFieldStatus } from '../models/board-field.model';
 import { BoardService } from '../board.service';
+import { TilesService } from '../tiles.service';
 
 @Component({
   selector: 'app-board',
@@ -14,7 +15,7 @@ export class BoardComponent implements OnInit {
 
   
 
-  constructor(private boardService: BoardService) { }
+  constructor(private boardService: BoardService, private tilesService: TilesService) { }
 
   ngOnInit() {
   	// referencja do planszy w serwisie boardService
@@ -22,10 +23,12 @@ export class BoardComponent implements OnInit {
   }
 
   fieldClicked(clickedBoardField: BoardField, rowIndex: number, colIndex: number){
+  // funkcja obsługująca kliknięcie (próbę położenia płytki) na pole planszy
+  // clickedBoardField - referencja do klikniętego pola
   // rowIndex, colIndex - aktualne położenie klikniętego pola na planszy (w tablicy)
+  // this.tilesService.getSelectedTile() to aktualna płytka (tile) którą próbujemy położyć na planszy
 
-      this.board = this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex);
-
+      this.board = this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex, this.tilesService.getSelectedTile() );
 
   }
 

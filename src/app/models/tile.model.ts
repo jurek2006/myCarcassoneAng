@@ -1,6 +1,6 @@
 export class Tile{
 
-	constructor(public name: string, public city: CityOnTile, public image: string){}
+	constructor(public image: string, public city: CityOnTile){}
 }
 
 export class CityOnTile{

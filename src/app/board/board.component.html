@@ -10,7 +10,7 @@
 		[class.inactive] = "boardBox.boardFieldStatus === 2"
 		(click) = "fieldClicked(boardBox, rowIndex, colIndex)" >
 			<div class="boardBox">
-				{{boardBox.boardRow}} - {{boardBox.statusActive}}
+				<img *ngIf="boardBox.tileOnField !== undefined" src="assets/tiles_img/{{boardBox.tileOnField.image}}" alt="">
 			</div>
 		</td>
 	</tr>

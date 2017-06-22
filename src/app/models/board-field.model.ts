@@ -1,7 +1,11 @@
+import { Tile } from './tile.model';
 
 export class BoardField{
 
-	constructor(public boardRow: number, public boardFieldStatus: BoardFieldStatus = BoardFieldStatus.Inactive){}
+	constructor(
+		public boardRow: number, 
+		public boardFieldStatus: BoardFieldStatus = BoardFieldStatus.Inactive,
+		public tileOnField: Tile){}
 
 }
 
