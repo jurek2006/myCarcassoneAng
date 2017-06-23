@@ -10,8 +10,29 @@ export class TilesService{
 
 	private tiles: Tile[] = [
 		new Tile("tileA01.jpg", new CityOnTile() ),
-		new Tile("tileA02.jpg", new CityOnTile(1,0,1,0,1) ),
-		new Tile("tileA03.jpg", new CityOnTile() )
+		new Tile("tileA02.jpg", new CityOnTile(1,1,1,1,1) ),
+		new Tile("tileA03.jpg", new CityOnTile() ),
+		new Tile("tileA04.jpg", new CityOnTile() ),
+		new Tile("tileA05.jpg", new CityOnTile() ),
+		new Tile("tileA06.jpg", new CityOnTile(1,1,0,1,1) ),
+		new Tile("tileA07.jpg", new CityOnTile(1,1,0,1,1) ),
+		new Tile("tileA08.jpg", new CityOnTile(1,1,0,1,1) ),
+		new Tile("tileA09.jpg", new CityOnTile(1,1,0,1,1) ),
+		new Tile("tileA10.jpg", new CityOnTile() ),
+		new Tile("tileA11.jpg", new CityOnTile(1,0,0,1,0) ),
+		new Tile("tileA12.jpg", new CityOnTile(1,0,0,1,0) ),
+		new Tile("tileA13.jpg", new CityOnTile(1,0,0,1,0) ),
+		new Tile("tileA14.jpg", new CityOnTile(1,0,0,1,0) ),
+		new Tile("tileA15.jpg", new CityOnTile() ),
+		new Tile("tileA16.jpg", new CityOnTile(0,1,0,1,1) ),
+		new Tile("tileA17.jpg", new CityOnTile(0,1,0,1,1) ),
+		new Tile("tileA18.jpg", new CityOnTile(1,0,0,0,0) ),
+		new Tile("tileA19.jpg", new CityOnTile(1,0,0,0,0) ),
+		new Tile("tileA20.jpg", new CityOnTile(1,0,0,0,0) ),
+		new Tile("tileA21.jpg", new CityOnTile(1,2,0,0,0) ),
+		new Tile("tileA22.jpg", new CityOnTile(0,1,0,2,0) ),
+		new Tile("tileA23.jpg", new CityOnTile(1,0,0,0,0) ),
+		new Tile("tileA24.jpg", new CityOnTile(1,0,0,0,0) ),
 	];
 
 	// private selectedTile: Tile = this.tiles[0];
@@ -22,11 +43,16 @@ export class TilesService{
 		return this.selectedTile;
 	}
 
-	selectedTileClicked(): Tile{
+	selectedTileClicked(){
+	// bardzo testowe
 		this.tiles.shift();
-		this.selectedTile = this.tiles[0];
-		this.selectedTileChanged.emit(this.getSelectedTile());
-		return this.selectedTile;
+		if(this.tiles.length > 0){
+			this.selectedTile = this.tiles[0];
+			this.selectedTileChanged.emit(this.getSelectedTile());
+		}
+		else{
+			// TUTAJ NASTĘPUJE KONIEC GRY
+		}
 	}
 
 	setSelectedTileRotation(clockWiseRotation: number): Tile{

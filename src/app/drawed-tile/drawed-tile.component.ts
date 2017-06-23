@@ -17,11 +17,15 @@ export class DrawedTileComponent implements OnInit {
 
   ngOnInit() {
   	this.selectedTile = this.tilesService.getSelectedTile();
-    // this.selectedTileRotation = this.tilesService.getSelectedTileRotation();
+    this.tilesService.selectedTileChanged.subscribe(
+      () => {
+        this.selectedTile = this.tilesService.getSelectedTile();
+      }
+    );
   }
 
   imageTestClick(){
-  	this.selectedTile =  this.tilesService.selectedTileClicked();
+  	this.tilesService.selectedTileClicked();
   }
 
   onRotateTile(clockWiseRotation: number){
