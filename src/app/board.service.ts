@@ -24,7 +24,7 @@ export class BoardService{
 		return this.board[0].length -1;
 	}
 
-	putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile, tileToPutRotation: number){
+	putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
 	// clickedBoardField - kliknięte pole planszy na którym układany jest Tile/Klocek
 	// rowIndex, colIndex - aktualne (w momencie kliknięcia) położenie klikniętego pola planszy w tabeli-planszy
 	// tileToPut to aktualna płytka (tile) którą próbujemy położyć na planszy
@@ -43,7 +43,7 @@ export class BoardService{
 			console.log("Próbujemy położyć płytkę");
 			console.log(tileToPut);
 			clickedBoardField.tileOnField = tileToPut;
-			clickedBoardField.tileOnFieldRotation = tileToPutRotation;
+			clickedBoardField.tileOnFieldRotation = tileToPut.rotation;
 
 			// --------------------------------------------------------------------------
 			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny

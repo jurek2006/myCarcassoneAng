@@ -11,13 +11,13 @@ import { TilesService } from '../tiles.service';
 export class DrawedTileComponent implements OnInit {
 
 	selectedTile: Tile; //referencja do aktualnej płytko "do położenia" (pobierane z TilesService)
-  selectedTileRotation: number; //aktualny obrót płytko "do położenia" (pobierane z TilesService)
+  // DO USUNIĘCIA selectedTileRotation: number; //aktualny obrót płytko "do położenia" (pobierane z TilesService)
 
   constructor(private tilesService: TilesService) { }
 
   ngOnInit() {
   	this.selectedTile = this.tilesService.getSelectedTile();
-    this.selectedTileRotation = this.tilesService.getSelectedTileRotation();
+    // this.selectedTileRotation = this.tilesService.getSelectedTileRotation();
   }
 
   imageTestClick(){
@@ -25,7 +25,7 @@ export class DrawedTileComponent implements OnInit {
   }
 
   onRotateTile(clockWiseRotation: number){
-    this.selectedTileRotation = this.tilesService.setSelectedTileRotation(clockWiseRotation);
+    this.selectedTile = this.tilesService.setSelectedTileRotation(clockWiseRotation);
   }
 
 }

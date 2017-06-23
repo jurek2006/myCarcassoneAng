@@ -5,9 +5,9 @@
 			    class="btn btn-primary"
 			    (click)="imageTestClick()">
 			    <img src="assets/tiles_img/{{ selectedTile.image }}"
-			    [class.rotate90] = "selectedTileRotation === 90"
-			    [class.rotate180] = "selectedTileRotation === 180"
-			    [class.rotate270] = "selectedTileRotation === 270">
+			    [class.rotate90] = "selectedTile.rotation === 90"
+			    [class.rotate180] = "selectedTile.rotation === 180"
+			    [class.rotate270] = "selectedTile.rotation === 270">
 			</button>
 		</div>
 	</div>
