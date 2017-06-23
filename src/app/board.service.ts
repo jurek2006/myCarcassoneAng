@@ -24,77 +24,93 @@ export class BoardService{
 		return this.board[0].length -1;
 	}
 
-	putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
+	boardFieldClicked(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
+	// metoda obsługi kliknięcia na pole planszy
+	// tutaj jest sprawdzane, czy jest aktywne  [BoardFieldStatus.Active](wówczas następuje położenie płytki)
+	// jeśli nie jest aktywne i jest na nim położona płytka [BoardFieldStatus.Occupied] to przekazuje szczegóły o tej płytce
+	// jeśli nie jest aktywne [BoardFieldStatus.Inactive to nie robi nic]
+
 	// clickedBoardField - kliknięte pole planszy na którym układany jest Tile/Klocek
 	// rowIndex, colIndex - aktualne (w momencie kliknięcia) położenie klikniętego pola planszy w tabeli-planszy
 	// tileToPut to aktualna płytka (tile) którą próbujemy położyć na planszy
-	// tileToPutRotation to aktualny obrót (o 90, 180 lub 270 zgodnie z ruchem zegara) aktualnej płytki do położenia
 
-		// sprawdzenie czy w ogóle można było kliknąć w pole planszy (czy jest aktywne)
-		// i czy kliknięte pole to jest to samo, co położone w tablicy board o umiejscowieniu [rowIndex, colIndex]
-		// tak powinno być zawsze - jeśli jest inaczej, to nastąpił jakiś błąd
-		if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active 
-			&& clickedBoardField === this.board[rowIndex][colIndex]){
-
-			// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
-			clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
-
-			// TUTAJ BĘDZIE TRZEBA "POŁOŻYĆ" PŁYTKĘ
-			console.log("Próbujemy położyć płytkę");
-			console.log(tileToPut);
-
-			// zamiast przypisać referencji do płytki:
-			// clickedBoardField.tileOnField = tileToPut;
-			// musimy zrobić jej kopię
-			clickedBoardField.tileOnField = Object.assign({}, tileToPut);
-
-			// --------------------------------------------------------------------------
-			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
-			let newRowOrColPosition: NewRowOrColPosition;
-
-			// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
-			// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
-			// przy powiększaniu planszy na górze/z lewej uaktualnienie odpowiednio rowIndex, colIndex
-			if(rowIndex === 0){
-			// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
-				newRowOrColPosition = NewRowOrColPosition.Top;
-				rowIndex++;
-			}else if(rowIndex === this.boardLastRowIndex()){
-			// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
-				newRowOrColPosition = NewRowOrColPosition.Bottom;
-			}else if(colIndex === 0){
-			// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
-				newRowOrColPosition = NewRowOrColPosition.Left;
-				colIndex++;
-			}else if(colIndex === this.boardLastColIndex()){
-			// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
-				newRowOrColPosition = NewRowOrColPosition.Right;
+		
+		if(clickedBoardField === this.board[rowIndex][colIndex]){
+		// sprawdzenie czy poprawmie przekazame jest umiejscowienie klikniętego pola planszy za pomocą rowIndex i colIndex
+			
+			if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active){
+			// sprawdzenie, czy kliknięte pole jest aktywne
+			// jeśli tak, to można na nim położyć płytkę
+				return this.putTileOnBoard(clickedBoardField, rowIndex, colIndex, tileToPut);
 			}
-			this.addBoardColOrRow(newRowOrColPosition);
-
-			// ---------------------------------------------------------------------------
-			// Sprawdzenie pól przylegających do klikniętego pola (czyli po jednym na górze, dole, po prawej, po lewej)
-			// Czy mają status inactive. Jeśli tak, to nadanie im active. 
-
-			// na górze 
-			if(this.board[rowIndex -1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
-				this.board[rowIndex -1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
+			else if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Occupied){
+			// sprawdzenie czy pole jest już zajęte przez płytkę
+				console.log("Kliknięto pole z płytką:");
+				console.log(clickedBoardField.tileOnField);
+				// zwraca niezmienioną planszę 
+				return this.getBoard();
 			}
-			// na dole
-			if(this.board[rowIndex +1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
-				this.board[rowIndex +1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
-			}
-			// z lewej 
-			if(this.board[rowIndex][colIndex -1].boardFieldStatus === BoardFieldStatus.Inactive){
-				this.board[rowIndex][colIndex -1].boardFieldStatus = BoardFieldStatus.Active;
-			}
-			// z prawej
-			if(this.board[rowIndex][colIndex +1].boardFieldStatus === BoardFieldStatus.Inactive){
-				this.board[rowIndex][colIndex +1].boardFieldStatus = BoardFieldStatus.Active;
-			}
-
 		}else{
 			console.log("Nastąpił błąd - clickedBoardField nie odpowiada temu z board[rowIndex][colIndex]");
+		}
+	}
+
+	private putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
+	// metoda kładąca płytkę na planszę (wywoływana jest tylko dla aktywnych płytek, więc nie trzeba tego sprawdzać)
+	
+
+		// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
+		clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
+
+		// TUTAJ "KŁADZIEMY" PŁYTKĘ
+		// zamiast przypisać referencji do płytki:
+		// clickedBoardField.tileOnField = tileToPut;
+		// musimy zrobić jej kopię (inaczej płytki na planszy będą nam się obracać)
+		clickedBoardField.tileOnField = Object.assign({}, tileToPut);
+
+		// --------------------------------------------------------------------------
+		// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
+		let newRowOrColPosition: NewRowOrColPosition;
+
+		// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
+		// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
+		// przy powiększaniu planszy na górze/z lewej uaktualnienie odpowiednio rowIndex, colIndex
+		if(rowIndex === 0){
+		// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
+			newRowOrColPosition = NewRowOrColPosition.Top;
+			rowIndex++;
+		}else if(rowIndex === this.boardLastRowIndex()){
+		// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
+			newRowOrColPosition = NewRowOrColPosition.Bottom;
+		}else if(colIndex === 0){
+		// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
+			newRowOrColPosition = NewRowOrColPosition.Left;
+			colIndex++;
+		}else if(colIndex === this.boardLastColIndex()){
+		// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
+			newRowOrColPosition = NewRowOrColPosition.Right;
+		}
+		this.addBoardColOrRow(newRowOrColPosition);
+
+		// ---------------------------------------------------------------------------
+		// Sprawdzenie pól przylegających do klikniętego pola (czyli po jednym na górze, dole, po prawej, po lewej)
+		// Czy mają status inactive. Jeśli tak, to nadanie im active. 
+
+		// na górze 
+		if(this.board[rowIndex -1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
+			this.board[rowIndex -1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
+		}
+		// na dole
+		if(this.board[rowIndex +1 ][colIndex].boardFieldStatus === BoardFieldStatus.Inactive){
+			this.board[rowIndex +1 ][colIndex].boardFieldStatus = BoardFieldStatus.Active;
+		}
+		// z lewej 
+		if(this.board[rowIndex][colIndex -1].boardFieldStatus === BoardFieldStatus.Inactive){
+			this.board[rowIndex][colIndex -1].boardFieldStatus = BoardFieldStatus.Active;
+		}
+		// z prawej
+		if(this.board[rowIndex][colIndex +1].boardFieldStatus === BoardFieldStatus.Inactive){
+			this.board[rowIndex][colIndex +1].boardFieldStatus = BoardFieldStatus.Active;
 		}
 
 		return this.getBoard();

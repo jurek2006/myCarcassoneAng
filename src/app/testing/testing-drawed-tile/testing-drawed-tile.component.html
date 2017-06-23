@@ -1,0 +1,52 @@
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h3 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="" (click)="toggleDisplay()">
+          Płytka do położenia
+        </a>
+      </h3>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div 
+      class="card-block container" 
+      *ngIf="componentVisible">
+
+		<div class="row">
+			<div class="col-sm-12 col-md-2">
+	        
+	        	<img src="assets/tiles_img/{{ selectedTile.image }}"
+				    [class.rotate90] = "selectedTile.rotation === 90"
+				    [class.rotate180] = "selectedTile.rotation === 180"
+				    [class.rotate270] = "selectedTile.rotation === 270">
+			</div>
+
+			<div class="col-sm-12 col-md-10">
+				Image: {{ selectedTile.image }}<br>
+				Rotation: {{ selectedTile.rotation }}<br>
+
+				City: 
+				<table>
+					<tr>
+						<td></td>
+						<td>{{ selectedTile.city.top }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>{{ selectedTile.city.left }}</td>
+						<td>{{ selectedTile.city.center }}</td>
+						<td>{{ selectedTile.city.right }}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>{{ selectedTile.city.bottom }}</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>

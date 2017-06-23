@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { BoardTileComponent } from './board/board-tile/board-tile.component';
 import { DrawedTileComponent } from './drawed-tile/drawed-tile.component';
+import { TestingComponent } from './testing/testing.component';
+import { TestingDrawedTileComponent } from './testing/testing-drawed-tile/testing-drawed-tile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     BoardTileComponent,
-    DrawedTileComponent
+    DrawedTileComponent,
+    TestingComponent,
+    TestingDrawedTileComponent
   ],
   imports: [
     BrowserModule,

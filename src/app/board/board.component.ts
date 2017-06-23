@@ -28,7 +28,7 @@ export class BoardComponent implements OnInit {
   // rowIndex, colIndex - aktualne położenie klikniętego pola na planszy (w tablicy)
   // this.tilesService.getSelectedTile() to aktualna płytka (tile) którą próbujemy położyć na planszy
 
-      this.board = this.boardService.putTileOnBoard(clickedBoardField, rowIndex, colIndex, this.tilesService.getSelectedTile() );
+      this.board = this.boardService.boardFieldClicked(clickedBoardField, rowIndex, colIndex, this.tilesService.getSelectedTile() );
 
   }
 
