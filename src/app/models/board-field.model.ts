@@ -5,7 +5,8 @@ export class BoardField{
 	constructor(
 		public boardRow: number, 
 		public boardFieldStatus: BoardFieldStatus = BoardFieldStatus.Inactive,
-		public tileOnField: Tile){}
+		public tileOnField: Tile,
+		public tileOnFieldRotation: number = 0){}
 
 }
 

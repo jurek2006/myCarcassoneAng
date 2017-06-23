@@ -14,4 +14,11 @@ table{
 img{
 	width: 100px;
 	height: 100px;
+	z-index: 1;
+}
+
+p{
+	z-index: 2; 
+	position: absolute;
+	background-color: rgba(256,256,256,0.5);
 }

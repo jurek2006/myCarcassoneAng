@@ -10,16 +10,22 @@ import { TilesService } from '../tiles.service';
 })
 export class DrawedTileComponent implements OnInit {
 
-	selectedTile: Tile;
+	selectedTile: Tile; //referencja do aktualnej płytko "do położenia" (pobierane z TilesService)
+  selectedTileRotation: number; //aktualny obrót płytko "do położenia" (pobierane z TilesService)
 
   constructor(private tilesService: TilesService) { }
 
   ngOnInit() {
   	this.selectedTile = this.tilesService.getSelectedTile();
+    this.selectedTileRotation = this.tilesService.getSelectedTileRotation();
   }
 
   imageTestClick(){
   	this.selectedTile =  this.tilesService.selectedTileClicked();
+  }
+
+  onRotateTile(clockWiseRotation: number){
+    this.selectedTileRotation = this.tilesService.setSelectedTileRotation(clockWiseRotation);
   }
 
 }
