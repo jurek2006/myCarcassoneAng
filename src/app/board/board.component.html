@@ -11,7 +11,12 @@
 		(click) = "fieldClicked(boardBox, rowIndex, colIndex)" >
 			<div class="boardBox">
 				<p *ngIf="boardBox.tileOnField !== undefined">{{boardBox.tileOnFieldRotation}}</p>
-				<img *ngIf="boardBox.tileOnField !== undefined" src="assets/tiles_img/{{boardBox.tileOnField.image}}" alt="">
+				<img 
+				*ngIf="boardBox.tileOnField !== undefined" src="assets/tiles_img/{{boardBox.tileOnField.image}}"
+				[class.rotate90] = "boardBox.tileOnField.rotation === 90"
+			    [class.rotate180] = "boardBox.tileOnField.rotation === 180"
+			    [class.rotate270] = "boardBox.tileOnField.rotation === 270"
+				>
 			</div>
 		</td>
 	</tr>

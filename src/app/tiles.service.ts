@@ -12,7 +12,8 @@ export class TilesService{
 		new Tile("tileA03.jpg", new CityOnTile() )
 	];
 
-	private selectedTile: Tile = this.tiles[0];
+	// private selectedTile: Tile = this.tiles[0];
+	private selectedTile: Tile = Object.assign({}, this.tiles[0]);
 	// właściwość opisująca obrócenie płytki (na potrzeby umieszczenia jej w polu)
 
 	getSelectedTile(): Tile{
@@ -29,7 +30,8 @@ export class TilesService{
 			// uaktualnienie aktualnego obrotu
 			this.selectedTile.rotation = (this.selectedTile.rotation + clockWiseRotation) % 360;
 			// testowe:
-			console.log(this.selectedTile.rotation);
+			// console.log(this.selectedTile.rotation);
+			console.log(this.tiles[0]);
 		}
 		return this.selectedTile;
 		

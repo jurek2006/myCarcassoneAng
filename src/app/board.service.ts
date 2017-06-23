@@ -42,8 +42,11 @@ export class BoardService{
 			// TUTAJ BĘDZIE TRZEBA "POŁOŻYĆ" PŁYTKĘ
 			console.log("Próbujemy położyć płytkę");
 			console.log(tileToPut);
-			clickedBoardField.tileOnField = tileToPut;
-			clickedBoardField.tileOnFieldRotation = tileToPut.rotation;
+
+			// zamiast przypisać referencji do płytki:
+			// clickedBoardField.tileOnField = tileToPut;
+			// musimy zrobić jej kopię
+			clickedBoardField.tileOnField = Object.assign({}, tileToPut);
 
 			// --------------------------------------------------------------------------
 			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
