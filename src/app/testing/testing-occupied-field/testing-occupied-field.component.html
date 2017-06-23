@@ -1,0 +1,57 @@
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h3 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="" (click)="toggleDisplay()">
+          Płytka na polu
+        </a>
+      </h3>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div 
+      class="card-block container" 
+      *ngIf="componentVisible">
+
+		<div 
+		class="row"
+		*ngIf="tileOnClickedField !== undefined; else noSelectedOccField">
+			<div class="col-sm-12 col-md-2">
+	        
+	        	<img src="assets/tiles_img/{{ tileOnClickedField.image }}"
+				    [class.rotate90] = "tileOnClickedField.rotation === 90"
+				    [class.rotate180] = "tileOnClickedField.rotation === 180"
+				    [class.rotate270] = "tileOnClickedField.rotation === 270">
+			</div>
+
+			<div class="col-sm-12 col-md-10">
+				Image: {{ tileOnClickedField.image }}<br>
+				Rotation: {{ tileOnClickedField.rotation }}<br>
+
+				City: 
+				<table>
+					<tr>
+						<td></td>
+						<td>{{ tileOnClickedField.city.top }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>{{ tileOnClickedField.city.left }}</td>
+						<td>{{ tileOnClickedField.city.center }}</td>
+						<td>{{ tileOnClickedField.city.right }}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>{{ tileOnClickedField.city.bottom }}</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<ng-template #noSelectedOccField>
+			<p>Nie wybrano żadnego pola planszy z ustawioną płytką</p>
+		</ng-template>
+      </div>
+    </div>
+  </div>
+</div>

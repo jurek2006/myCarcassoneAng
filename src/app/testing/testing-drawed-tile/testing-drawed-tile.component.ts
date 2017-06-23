@@ -9,7 +9,7 @@ import { Tile, CityOnTile } from '../../models/tile.model';
 })
 export class TestingDrawedTileComponent implements OnInit {
 
-	componentVisible = true;
+	componentVisible: boolean = true;
 	selectedTile: Tile;
 
   constructor(private tilesService: TilesService) { }

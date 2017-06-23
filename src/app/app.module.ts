@@ -9,6 +9,7 @@ import { BoardTileComponent } from './board/board-tile/board-tile.component';
 import { DrawedTileComponent } from './drawed-tile/drawed-tile.component';
 import { TestingComponent } from './testing/testing.component';
 import { TestingDrawedTileComponent } from './testing/testing-drawed-tile/testing-drawed-tile.component';
+import { TestingOccupiedFieldComponent } from './testing/testing-occupied-field/testing-occupied-field.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TestingDrawedTileComponent } from './testing/testing-drawed-tile/testin
     BoardTileComponent,
     DrawedTileComponent,
     TestingComponent,
-    TestingDrawedTileComponent
+    TestingDrawedTileComponent,
+    TestingOccupiedFieldComponent
   ],
   imports: [
     BrowserModule,

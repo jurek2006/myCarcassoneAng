@@ -1,9 +1,15 @@
+import { EventEmitter } from '@angular/core';
 import { BoardField, BoardFieldStatus } from './models/board-field.model';
 import { NewRowOrColPosition } from './models/newRowOrColPosition.model';
 import { Tile } from './models/tile.model';
 
 // BoardService przechowuje dane planszy
 export class BoardService{
+
+	// emiter - za każdym razem, kiedy zostanie kliknięte pole już z płytką (occupied)
+	occupiedFieldSelected = new EventEmitter<Tile>();
+
+	// board to tablica dwuwymiarowa planszy
 	private board  = [	
 		[new BoardField(0, BoardFieldStatus.Inactive, undefined), new BoardField(1, BoardFieldStatus.Active, undefined), new BoardField(2,BoardFieldStatus.Inactive, undefined) ], 
 		[new BoardField(0, BoardFieldStatus.Active, undefined), new BoardField(1, BoardFieldStatus.Occupied, undefined), new BoardField(2,BoardFieldStatus.Active, undefined) ], 
@@ -47,6 +53,7 @@ export class BoardService{
 			// sprawdzenie czy pole jest już zajęte przez płytkę
 				console.log("Kliknięto pole z płytką:");
 				console.log(clickedBoardField.tileOnField);
+				this.occupiedFieldSelected.emit(clickedBoardField.tileOnField);
 				// zwraca niezmienioną planszę 
 				return this.getBoard();
 			}

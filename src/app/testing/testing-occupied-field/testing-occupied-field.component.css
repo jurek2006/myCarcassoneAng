@@ -1,0 +1,26 @@
+#accordion{
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid rgba(0,0,0,0.5);
+}
+
+img{
+	width: 100px;
+	height: 100px;
+}
+
+.rotate90{
+	transform: rotate(90deg);
+}
+
+.rotate180{
+	transform: rotate(180deg);
+}
+
+.rotate270{
+	transform: rotate(270deg);
+}
+
+td{
+	min-width: 10px;
+}
