@@ -10,10 +10,14 @@ export class BoardService{
 	occupiedFieldSelected = new EventEmitter<Tile>();
 
 	// board to tablica dwuwymiarowa planszy
+	// private board  = [	
+	// 	[new BoardField(0, BoardFieldStatus.Inactive, undefined), new BoardField(1, BoardFieldStatus.Active, undefined), new BoardField(2,BoardFieldStatus.Inactive, undefined) ], 
+	// 	[new BoardField(0, BoardFieldStatus.Active, undefined), new BoardField(1, BoardFieldStatus.Occupied, undefined), new BoardField(2,BoardFieldStatus.Active, undefined) ], 
+	// 	[new BoardField(0, BoardFieldStatus.Inactive, undefined), new BoardField(1, BoardFieldStatus.Active, undefined), new BoardField(2,BoardFieldStatus.Inactive, undefined) ], 
+	// ];
+
 	private board  = [	
-		[new BoardField(0, BoardFieldStatus.Inactive, undefined), new BoardField(1, BoardFieldStatus.Active, undefined), new BoardField(2,BoardFieldStatus.Inactive, undefined) ], 
-		[new BoardField(0, BoardFieldStatus.Active, undefined), new BoardField(1, BoardFieldStatus.Occupied, undefined), new BoardField(2,BoardFieldStatus.Active, undefined) ], 
-		[new BoardField(0, BoardFieldStatus.Inactive, undefined), new BoardField(1, BoardFieldStatus.Active, undefined), new BoardField(2,BoardFieldStatus.Inactive, undefined) ], 
+		[ new BoardField(2,BoardFieldStatus.Active, undefined) ]
 	];
 
 	getBoard(){
@@ -62,9 +66,17 @@ export class BoardService{
 		}
 	}
 
+	isBoardEmpty(): boolean{
+	// metoda sprawdzająca, czy plansza jest pusta (to oznacza, że ma zaledwie jeden element w tablicy board[] na który można położyć płytkę)
+	// jeśli plansza jest pusta - zwraca true
+		if(this.board.length === 1 && this.board[0].length === 1){ return true;	}
+		else {return false;}
+	}
+
 	private putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
 	// metoda kładąca płytkę na planszę (wywoływana jest tylko dla aktywnych płytek, więc nie trzeba tego sprawdzać)
 	
+
 
 		// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
 		clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
@@ -76,28 +88,43 @@ export class BoardService{
 		clickedBoardField.tileOnField = Object.assign({}, tileToPut);
 
 		// --------------------------------------------------------------------------
-		// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
-		let newRowOrColPosition: NewRowOrColPosition;
+		// NIEPUSTA /NIEPOCZĄTKOWA. PLANSZA - sprawdzenie, czy jest to standardowe zachowanie (nie jest to "pusta plansza" z jedną płytką)
+		if(!this.isBoardEmpty()){
 
-		// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
-		// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
-		// przy powiększaniu planszy na górze/z lewej uaktualnienie odpowiednio rowIndex, colIndex
-		if(rowIndex === 0){
-		// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
-			newRowOrColPosition = NewRowOrColPosition.Top;
-			rowIndex++;
-		}else if(rowIndex === this.boardLastRowIndex()){
-		// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
-			newRowOrColPosition = NewRowOrColPosition.Bottom;
-		}else if(colIndex === 0){
-		// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
-			newRowOrColPosition = NewRowOrColPosition.Left;
-			colIndex++;
-		}else if(colIndex === this.boardLastColIndex()){
-		// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
-			newRowOrColPosition = NewRowOrColPosition.Right;
+			// Dodawanie wiersza lub kolumny jeśli to potrzebne - żeby umieścić nowy element aktywny
+			let newRowOrColPosition: NewRowOrColPosition;
+
+			// z natury planszy i aktywowania pól bycie w pierwszym/ostatnim wierszu 
+			// i pierwszej/ostatniej kolumnie wzajemnie się wykluczają.
+			// przy powiększaniu planszy na górze/z lewej uaktualnienie odpowiednio rowIndex, colIndex
+			if(rowIndex === 0){
+			// jeśli kliknięte pole jest w pierwszym wierszu (na górze planszy)
+				newRowOrColPosition = NewRowOrColPosition.Top;
+				rowIndex++;
+			}else if(rowIndex === this.boardLastRowIndex()){
+			// jeśli kliknięte pole jest w ostatnim wierszu (na dole planszy)
+				newRowOrColPosition = NewRowOrColPosition.Bottom;
+			}else if(colIndex === 0){
+			// jeśli kliknięte pole jest w pierwszej kolumnie (na lewym skraju planszy)
+				newRowOrColPosition = NewRowOrColPosition.Left;
+				colIndex++;
+			}else if(colIndex === this.boardLastColIndex()){
+			// jeśli kliknięte pole jest w ostatniej kolumnie (na prawym skraju planszy)
+				newRowOrColPosition = NewRowOrColPosition.Right;
+			}
+			this.addBoardColOrRow(newRowOrColPosition);
 		}
-		this.addBoardColOrRow(newRowOrColPosition);
+		else{
+		// PLANSZA PUSTA /POCZĄTKOWA - położona została dopiero pierwsza płytka - więc zachowanie planszy jest inne
+		// Należy dodać pola nad/pod/na lewo/na prawo od płytki 
+
+			this.addBoardColOrRow(NewRowOrColPosition.Top);
+			rowIndex++; //dodano wiersz nad aktualnie klikniętym, więc zmienia się indeks wiersza 
+			this.addBoardColOrRow(NewRowOrColPosition.Bottom);
+			this.addBoardColOrRow(NewRowOrColPosition.Left);
+			colIndex++; //dodano wiersz na lewo od aktualnie klikniętego pola, więc zmienia się indeks kolumny
+			this.addBoardColOrRow(NewRowOrColPosition.Right);
+		}
 
 		// ---------------------------------------------------------------------------
 		// Sprawdzenie pól przylegających do klikniętego pola (czyli po jednym na górze, dole, po prawej, po lewej)

@@ -65,8 +65,5 @@ export class TilesService{
 		
 	}
 
-	// getSelectedTileRotation(): number{
-	// 	return this.selectedTile.rotation;
-	// }
 
 }
