@@ -50,7 +50,7 @@ export class BoardService{
 			
 			if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Active){
 			// sprawdzenie, czy kliknięte pole jest aktywne
-			// jeśli tak, to można na nim położyć płytkę
+			// jeśli tak, to można na nim próbować położyć płytkę
 				return this.putTileOnBoard(clickedBoardField, rowIndex, colIndex, tileToPut);
 			}
 			else if(clickedBoardField.boardFieldStatus === BoardFieldStatus.Occupied){
@@ -75,8 +75,8 @@ export class BoardService{
 
 	private putTileOnBoard(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
 	// metoda kładąca płytkę na planszę (wywoływana jest tylko dla aktywnych płytek, więc nie trzeba tego sprawdzać)
-	
-
+	// najpierw sprawdza, czy można położyć płytkę "ze względów merytorycznych" (czy zgadza się na płytkach obok droga, miasto, rzeka itd. )
+		this.isAllowedToPutTheTileHere(clickedBoardField, rowIndex, colIndex, tileToPut);
 
 		// Zmiana stanu klikniętego pola - staje się occupied, ponieważ położono na nim tile
 		clickedBoardField.boardFieldStatus = BoardFieldStatus.Occupied; 
@@ -187,5 +187,9 @@ export class BoardService{
 			addCol(newRowOrColPosition);
 		}
 
+	}
+
+	private isAllowedToPutTheTileHere(clickedBoardField: BoardField, rowIndex: number, colIndex: number, tileToPut: Tile){
+	// funkcja sprawdza, czy "merytorycznie" płytkę można położyć na danym polu (nie kolidują droga, miasto, rzeka itd. z sąsiednimi)
 	}
 }

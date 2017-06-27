@@ -35,9 +35,10 @@ export class TilesService{
 		new Tile("tileA24.jpg", new CityOnTile(1,0,0,0,0) ),
 	];
 
-	// private selectedTile: Tile = this.tiles[0];
-	private selectedTile: Tile = Object.assign({}, this.tiles[0]);
-	// właściwość opisująca obrócenie płytki (na potrzeby umieszczenia jej w polu)
+	// powrót do przekazania płytki przez referencję
+	// kopia generowałe error "not a function" - myślę, że deep copy załatwiło by sprawę
+	private selectedTile: Tile = this.tiles[0];
+	// private selectedTile: Tile = Object.assign({}, this.tiles[0]);
 
 	getSelectedTile(): Tile{
 		return this.selectedTile;

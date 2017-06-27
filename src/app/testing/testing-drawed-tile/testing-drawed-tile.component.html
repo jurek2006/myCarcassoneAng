@@ -45,6 +45,28 @@
 					</tr>
 				</table>
 			</div>
+
+			<div class="col-sm-12 col-md-10">
+
+				City po rotacji: 
+				<table>
+					<tr>
+						<td></td>
+						<td>{{ selectedTile.cityAfterRotation().top }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>{{ selectedTile.cityAfterRotation().left }}</td>
+						<td>{{ selectedTile.cityAfterRotation().center }}</td>
+						<td>{{ selectedTile.cityAfterRotation().right }}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>{{ selectedTile.cityAfterRotation().bottom }}</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
 		</div>
       </div>
     </div>

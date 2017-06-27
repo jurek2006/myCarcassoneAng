@@ -47,6 +47,27 @@
 					</tr>
 				</table>
 			</div>
+			<div class="col-sm-12 col-md-10">
+
+				City po rotacji: 
+				<table>
+					<tr>
+						<td></td>
+						<td>{{ tileOnClickedField.cityAfterRotation().top }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>{{ tileOnClickedField.cityAfterRotation().left }}</td>
+						<td>{{ tileOnClickedField.cityAfterRotation().center }}</td>
+						<td>{{ tileOnClickedField.cityAfterRotation().right }}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>{{ tileOnClickedField.cityAfterRotation().bottom }}</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<ng-template #noSelectedOccField>
 			<p>Nie wybrano żadnego pola planszy z ustawioną płytką</p>
